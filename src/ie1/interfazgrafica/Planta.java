@@ -12,9 +12,9 @@ public class Planta extends Entidad implements Reproducible{
     private int tamanio;
     
     public Planta(String nombre){
-        super(nombre);
-        this.tamanio = (int)(Math.random() * 5) + 1;
-    }
+    super(nombre, 30.0 + Math.random() * 70.0, 0);
+    this.tamanio = (int)(Math.random() * 5) + 1;
+}
     
     @Override
     protected void actuar(Ecosistema eco){

@@ -12,12 +12,11 @@ abstract class Animal extends Entidad implements Mortal{
     private int velocidad;
     private double peso;
     
-    public Animal(String nombre, int velocidad, double peso){
-        super(nombre);
-        this.velocidad = velocidad;
-        this.peso = peso;
-    }
-    
+   public Animal(String nombre, double energia, int velocidad, double peso){
+    super(nombre, energia, 0);
+    this.velocidad = velocidad;
+    this.peso = peso;
+}
     abstract void comer(Ecosistema eco);
     
     protected void moverse(){

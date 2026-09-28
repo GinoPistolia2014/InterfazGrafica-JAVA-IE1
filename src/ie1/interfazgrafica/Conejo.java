@@ -8,7 +8,7 @@ package ie1.interfazgrafica;
  *
  * @author alqui
  */
-public class Conejo extends Animal implements Reproducible, {
+public class Conejo extends Animal implements Reproducible {
     
     public Conejo(String nombre, double energia, int velocidad, double peso){
         super(nombre, energia, velocidad, peso);

@@ -16,9 +16,9 @@ public abstract class Entidad {
     
     public Entidad(String nombre, double energia, int edad){
         this.nombre = nombre;
-        this.energia = 30.0 + (Math.random() * 70.0);
-        this.edad = 0;
-        this.viva = true;
+        this.energia = Math.max(0.0, energia);
+        this.edad = Math.max(0, edad);
+        this.viva = this.energia > 0;
     }
     
     abstract void actuar(Ecosistema eco);
