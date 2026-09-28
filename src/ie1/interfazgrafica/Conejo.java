@@ -26,20 +26,32 @@ public class Conejo extends Animal implements Reproducible {
     }
     
     @Override
-    public boolean puedeReproducirse() {
-        return obtenerEnergia() > 30;
-    }
+        public boolean puedeReproducirse() {
+        return estaVivo() && obtenerEnergia() > 60;
+}
 
     @Override
-    public void reproducirse(Ecosistema eco) {
-        if(obtenerEnergia() > 60){
-            Conejo nuevoConejo = new Conejo("Conejo-" + System.nanoTime(), 30, 5, 2.5);
-            eco.obtenerConejos().add(nuevoConejo);
-        } else {
-            System.out.println("No tiene la energía suficiente para reproducirse.");
-        }
-        
+public void reproducirse(Ecosistema eco) {
+    if (!puedeReproducirse()) {
+        return;
     }
+
+    boolean hayOtroConejoVivo = false;
+
+    for (Conejo otro : eco.obtenerConejos()) {
+        if (otro != this && otro.estaVivo()) {
+            hayOtroConejoVivo = true;
+            break;
+        }
+    }
+
+    if (hayOtroConejoVivo) {
+        Conejo nuevoConejo = new Conejo(
+                "Conejo-" + System.nanoTime(), 30, 5, 2.5
+        );
+        eco.obtenerConejos().add(nuevoConejo);
+    }
+}
     
     @Override
     protected void mostrarEstado(){

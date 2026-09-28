@@ -9,17 +9,16 @@ package ie1.interfazgrafica;
  * @author alqui
  */
 public abstract class Entidad {
-    protected String nombre;
-    protected double energia;
-    protected int edad;
-    protected boolean viva;
-    
+    private String nombre;
+    private double energia;
+    private int edad;
+    private boolean viva;
     public Entidad(String nombre, double energia, int edad){
-        this.nombre = nombre;
-        this.energia = Math.max(0.0, energia);
-        this.edad = Math.max(0, edad);
-        this.viva = this.energia > 0;
-    }
+    establecerNombre(nombre);
+    establecerEnergia(energia);
+    establecerEdad(edad);
+    this.viva = obtenerEnergia() > 0;
+}
     
     abstract void actuar(Ecosistema eco);
     abstract void mostrarEstado();
@@ -45,16 +44,26 @@ public abstract class Entidad {
     // ------------------------------------------------- SETTERS
     
     protected void establecerNombre(String nombre){
-        this.nombre = nombre;
+    if (nombre == null || nombre.trim().isEmpty()) {
+        throw new IllegalArgumentException(
+                "El nombre no puede estar vacio.");
     }
+
+    this.nombre = nombre.trim();
+}
     
    protected void establecerEnergia(double energia){
+    if (!Double.isFinite(energia)) {
+        throw new IllegalArgumentException(
+                "La energia debe ser un numero finito.");
+    }
+
     this.energia = Math.max(0.0, energia);
 }
     
     protected void establecerEdad(int edad){
-        this.edad = edad;
-    }
+    this.edad = Math.max(0, edad);
+}
     
     protected void establecerViva(boolean viva){
         this.viva = viva;

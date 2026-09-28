@@ -25,7 +25,7 @@ public class IE1InterfazGrafica {
         int turnos;
         
         Planta nuevo = new Planta("planta");
-        System.out.println(nuevo.energia);
+        System.out.println(nuevo.obtenerEnergia());
         System.out.println("Bienvenido al juego!");
         
         plantas = validarCantidadEntidades(
@@ -48,7 +48,7 @@ public class IE1InterfazGrafica {
                 1,
                 5
             );
-        sc.nextLine();
+        
         
         climaInicial = validarClima(sc);
         
@@ -74,16 +74,28 @@ public class IE1InterfazGrafica {
     
     /////////////////////////////////////////////////////////////////VALIDACIONES
     
-    static int validarCantidadEntidades(Scanner sc, String mensaje, int min, int max){
-        System.out.println(mensaje);
-        int cantidad = sc.nextInt();
-        
-        while(cantidad < min || cantidad > max){
-            System.out.println("Valor invalido. Ingrese un numero entre " + min + " y " + max);
-            cantidad = sc.nextInt();
+    static int validarCantidadEntidades(
+        Scanner sc, String mensaje, int min, int max) {
+
+    System.out.println(mensaje);
+
+    while (true) {
+        String entrada = sc.nextLine().trim();
+
+        try {
+            int cantidad = Integer.parseInt(entrada);
+
+            if (cantidad >= min && cantidad <= max) {
+                return cantidad;
+            }
+
+            System.out.println(
+                    "Ingrese un numero entre " + min + " y " + max);
+        } catch (NumberFormatException e) {
+            System.out.println("Ingrese un numero entero valido.");
         }
-        return cantidad;
     }
+}
     
     static Clima validarClima(Scanner sc){
         System.out.println("Elige el clima inicial (soleado, lluvioso, sequia o invierno): ");
@@ -102,7 +114,7 @@ public class IE1InterfazGrafica {
     
     static void validarConfirmacion(Scanner sc){
         System.out.println("Ingresa 'OK' para iniciar.");
-        sc.nextLine();
+       
         String ok = sc.nextLine();
         
         while (!ok.equalsIgnoreCase("OK") && !ok.equalsIgnoreCase("'OK'")) {
@@ -114,7 +126,7 @@ public class IE1InterfazGrafica {
     static void crearEntidadesIniciales(int plantas, int conejos, int lobos, Ecosistema eco){
         for(int i = 1; i <= plantas; i++){
             Planta nuevaPlanta = new Planta("Planta-" + System.nanoTime());
-            eco.plantas.add(nuevaPlanta);
+            eco.obtenerPlantas().add(nuevaPlanta);
         }
         
         /*for(int i = 1; i > conejos; i++){

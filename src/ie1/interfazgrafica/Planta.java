@@ -13,7 +13,7 @@ public class Planta extends Entidad implements Reproducible{
     
     public Planta(String nombre){
     super(nombre, 30.0 + Math.random() * 70.0, 0);
-    this.tamanio = (int)(Math.random() * 5) + 1;
+    establecerTamanio((int)(Math.random() * 5) + 1);
 }
     
     @Override
@@ -42,9 +42,29 @@ public class Planta extends Entidad implements Reproducible{
         System.out.println("Tamaño: " + this.tamanio);
     }
     
-    private int serComida(){
-        establecerEnergia(3.0);
-        this.tamanio = tamanio * 10;
-        return this.tamanio;
+    public int serComida(){
+    if(!obtenerViva()){
+        return 0;
     }
+
+    int valorNutritivo = this.tamanio * 10;
+    establecerEnergia(0);
+    establecerViva(false);
+
+    return valorNutritivo;
+    
+    }
+    
+    public int obtenerTamanio(){
+    return this.tamanio;
 }
+
+public void establecerTamanio(int tamanio){
+    if (tamanio < 1 || tamanio > 5) {
+        throw new IllegalArgumentException(
+                "El tamanio debe estar entre 1 y 5.");
+    }
+
+    this.tamanio = tamanio;
+}
+}   

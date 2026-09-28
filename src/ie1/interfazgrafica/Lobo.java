@@ -9,11 +9,11 @@ package ie1.interfazgrafica;
  * @author alqui
  */
 public class Lobo extends Animal implements Mortal{
-    int exitosCaza;
+    private int exitosCaza;
     
     public Lobo(String nombre, double energia, int velocidad, double peso, int cazas){
         super(nombre, energia, velocidad, peso);
-        this.exitosCaza = cazas;
+        establecerExitosCaza(cazas);
     }
     
     @Override
@@ -32,4 +32,17 @@ public class Lobo extends Animal implements Mortal{
         System.out.println("Energía: " + obtenerEnergia());
         System.out.println("Cacerías exitosas: " + this.exitosCaza);
     }
+    
+    public int obtenerExitosCaza(){
+    return this.exitosCaza;
+}
+
+public void establecerExitosCaza(int exitosCaza){
+    if (exitosCaza < 0) {
+        throw new IllegalArgumentException(
+                "Las cacerias exitosas no pueden ser negativas.");
+    }
+
+    this.exitosCaza = exitosCaza;
+}
 }
