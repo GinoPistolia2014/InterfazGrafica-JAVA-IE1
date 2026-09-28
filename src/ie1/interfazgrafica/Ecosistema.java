@@ -11,9 +11,9 @@ import java.util.ArrayList;
  * @author alqui
  */
 public class Ecosistema {
-    ArrayList<Planta> plantas;
-    ArrayList<Conejo> conejos;
-    ArrayList<Lobo> lobos;
+    ArrayList<Planta> plantas = new ArrayList<>();
+    ArrayList<Conejo> conejos = new ArrayList<>();
+    ArrayList<Lobo> lobos = new ArrayList<>();
     Clima climaActual;
     int turnoActual;
     

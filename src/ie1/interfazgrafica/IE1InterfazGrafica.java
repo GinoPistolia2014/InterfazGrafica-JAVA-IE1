@@ -112,7 +112,7 @@ public class IE1InterfazGrafica {
     }
     
     static void crearEntidadesIniciales(int plantas, int conejos, int lobos, Ecosistema eco){
-        for(int i = 1; i > plantas; i++){
+        for(int i = 1; i <= plantas; i++){
             Planta nuevaPlanta = new Planta("Planta-" + System.nanoTime());
             eco.plantas.add(nuevaPlanta);
         }

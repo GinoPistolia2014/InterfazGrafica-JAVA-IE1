@@ -18,7 +18,7 @@ public class Planta extends Entidad implements Reproducible{
     
     @Override
     protected void actuar(Ecosistema eco){
-        if(obtenerEnergia() > 5 && eco.obtenerClimaActual() == Clima.invierno){
+        if(obtenerEnergia() > 5 && eco.obtenerClimaActual() != Clima.invierno){
             intentarReproduccion(eco);
         }
     }
