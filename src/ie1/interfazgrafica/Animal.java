@@ -32,5 +32,6 @@ abstract class Animal extends Entidad implements Mortal{
     @Override
     public void morir(){
         establecerEnergia(0);
+        establecerViva(false);
     };
 }

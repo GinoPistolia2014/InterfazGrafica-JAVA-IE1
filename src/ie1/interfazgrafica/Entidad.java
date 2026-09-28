@@ -48,13 +48,9 @@ public abstract class Entidad {
         this.nombre = nombre;
     }
     
-    protected void establecerEnergia(double energia){
-        if (energia < 0){
-            System.out.println("La energía no puedes ser menor a 0. Elige un valor válido");
-        } else {
-            this.energia = energia;
-        }
-    }
+   protected void establecerEnergia(double energia){
+    this.energia = Math.max(0.0, energia);
+}
     
     protected void establecerEdad(int edad){
         this.edad = edad;
@@ -65,7 +61,7 @@ public abstract class Entidad {
     }
     
     protected void envejecer(){
-        this.edad = edad + 1;
-        this.energia = energia - 5;
-    }
+    this.edad = this.edad + 1;
+    establecerEnergia(this.energia - 5);
+}
 }

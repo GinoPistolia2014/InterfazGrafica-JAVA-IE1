@@ -14,12 +14,10 @@ public interface Mortal {
     
     default void verificarMuerte(){
         double energia = obtenerEnergia();
-        if(energia <= 0 && (!estaVivo())){
+        if(energia <= 0 && estaVivo()){
             morir();
             System.out.println("La entidad ha muerto");
-        } else {
-            System.out.println("Aún sigue con vida");
-        }
+        } 
     };
     
     public boolean estaVivo();
