@@ -37,6 +37,7 @@ public class Ecosistema {
         ///CODE GOES HERE
     };
     
+    ///////////////////////////////////////// GETTERS
     Clima obtenerClimaActual(){
         return climaActual;
     }

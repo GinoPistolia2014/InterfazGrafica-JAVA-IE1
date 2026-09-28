@@ -11,14 +11,14 @@ package ie1.interfazgrafica;
 public class Planta extends Entidad implements Reproducible{
     private int tamanio;
     
-    public Planta(String nombre, double energia){
-        super(nombre, energia);
+    public Planta(String nombre){
+        super(nombre);
         this.tamanio = (int)(Math.random() * 5) + 1;
     }
     
     @Override
     protected void actuar(Ecosistema eco){
-        if(obtenerEnergia() > 5 && eco.obtenerClimaActual() == Clima.Invierno){
+        if(obtenerEnergia() > 5 && eco.obtenerClimaActual() == Clima.invierno){
             intentarReproduccion(eco);
         }
     }
@@ -30,7 +30,7 @@ public class Planta extends Entidad implements Reproducible{
 
     @Override
     public void reproducirse(Ecosistema eco) {
-        Planta nueva = new Planta("Planta-" + System.nanoTime(), 20);
+        Planta nueva = new Planta("Planta-" + System.nanoTime());
         eco.obtenerPlantas().add(nueva);
     }
     
@@ -40,7 +40,6 @@ public class Planta extends Entidad implements Reproducible{
         System.out.println("Nombre: " + obtenerNombre());
         System.out.println("Energía: " + obtenerEnergia());
         System.out.println("Tamaño: " + this.tamanio);
-        
     }
     
     private int serComida(){

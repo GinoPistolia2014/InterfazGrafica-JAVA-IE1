@@ -8,7 +8,7 @@ package ie1.interfazgrafica;
  *
  * @author alqui
  */
-public class Lobo extends Animal{
+public class Lobo extends Animal implements Mortal{
     int exitosCaza;
     
     public Lobo(String nombre, double energia, int velocidad, double peso, int cazas){

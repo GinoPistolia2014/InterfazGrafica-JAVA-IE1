@@ -9,5 +9,5 @@ package ie1.interfazgrafica;
  * @author alqui
  */
 public enum Clima {
-    Soleado, Lluvioso, Sequia, Invierno
+    soleado, lluvioso, sequia, invierno
 }

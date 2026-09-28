@@ -8,7 +8,7 @@ package ie1.interfazgrafica;
  *
  * @author alqui
  */
-public class Conejo extends Animal implements Reproducible{
+public class Conejo extends Animal implements Reproducible, {
     
     public Conejo(String nombre, double energia, int velocidad, double peso){
         super(nombre, energia, velocidad, peso);
@@ -21,19 +21,24 @@ public class Conejo extends Animal implements Reproducible{
     }
     
     @Override
+    void comer(Ecosistema eco){
+        ////CODE GOES HERE
+    }
+    
+    @Override
     public boolean puedeReproducirse() {
         return obtenerEnergia() > 30;
     }
 
     @Override
     public void reproducirse(Ecosistema eco) {
-        Conejo nuevoConejo = new Conejo("Conejo-" + System.nanoTime(), 30, 5, 2.5);
-        eco.obtenerConejos().add(nuevoConejo);
-    }
-    
-    @Override
-    void comer(Ecosistema eco){
-        ///CODE GOES HERE
+        if(obtenerEnergia() > 60){
+            Conejo nuevoConejo = new Conejo("Conejo-" + System.nanoTime(), 30, 5, 2.5);
+            eco.obtenerConejos().add(nuevoConejo);
+        } else {
+            System.out.println("No tiene la energía suficiente para reproducirse.");
+        }
+        
     }
     
     @Override

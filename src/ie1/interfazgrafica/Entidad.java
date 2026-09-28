@@ -9,14 +9,14 @@ package ie1.interfazgrafica;
  * @author alqui
  */
 public abstract class Entidad {
-    private String nombre;
-    private double energia;
-    private int edad;
-    private boolean viva;
+    protected String nombre;
+    protected double energia;
+    protected int edad;
+    protected boolean viva;
     
-    public Entidad(String nombre, double energia){
+    public Entidad(String nombre, double energia, int edad){
         this.nombre = nombre;
-        this.energia = energia;
+        this.energia = 30.0 + (Math.random() * 70.0);
         this.edad = 0;
         this.viva = true;
     }
