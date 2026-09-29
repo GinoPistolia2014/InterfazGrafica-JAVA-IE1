@@ -9,17 +9,14 @@ package ie1.interfazgrafica;
  * @author alqui
  */
 public interface Reproducible {
-    
-    default void intentarReproduccion(Ecosistema eco){
-        
-        if(puedeReproducirse()){
+
+    default void intentarReproduccion(Ecosistema eco) {
+        if (puedeReproducirse()) {
             reproducirse(eco);
-        } else {
-            System.out.println("No se puede reproducir en este momento");
         }
-        
     }
-    
+
     void reproducirse(Ecosistema eco);
+
     boolean puedeReproducirse();
 }

@@ -25,7 +25,7 @@ public abstract class Entidad {
     
     // ------------------------------------------------ GETTERS
     
-    protected String obtenerNombre(){
+    public String obtenerNombre() {
         return this.nombre;
     }
     

@@ -24,8 +24,7 @@ public class IE1InterfazGrafica {
         Clima climaInicial;
         int turnos;
         
-        Planta nuevo = new Planta("planta");
-        System.out.println(nuevo.obtenerEnergia());
+        
         System.out.println("Bienvenido al juego!");
         
         plantas = validarCantidadEntidades(
@@ -68,8 +67,19 @@ public class IE1InterfazGrafica {
         System.out.println("Turnos ingresados: " + turnos);
         
         validarConfirmacion(sc);
-        
-        sc.close();
+
+         Ecosistema eco = new Ecosistema();
+         eco.cambiarClima(climaInicial);
+
+         crearEntidadesIniciales(plantas, conejos, lobos, eco);
+
+          System.out.println("Ecosistema inicial creado:");
+          System.out.println("Plantas: " + eco.obtenerPlantas().size());
+          System.out.println("Conejos: " + eco.obtenerConejos().size());
+          System.out.println("Lobos: " + eco.obtenerLobos().size());
+          System.out.println("Clima: " + eco.obtenerClimaActual());
+
+         sc.close();
     }
     
     /////////////////////////////////////////////////////////////////VALIDACIONES
@@ -123,22 +133,21 @@ public class IE1InterfazGrafica {
         }
     }
     
-    static void crearEntidadesIniciales(int plantas, int conejos, int lobos, Ecosistema eco){
-        for(int i = 1; i <= plantas; i++){
-            Planta nuevaPlanta = new Planta("Planta-" + System.nanoTime());
-            eco.obtenerPlantas().add(nuevaPlanta);
-        }
-        
-        /*for(int i = 1; i > conejos; i++){
-            Conejo nuevoConejo = new Conejo("Conejo-" + System.nanoTime());
-            eco.plantas.add(nuevoConejo);
-        }
-        
-        for(int i = 1; i > lobos; i++){
-            Lobo nuevoLobo = new Lobo("Planta-" + System.nanoTime());
-            eco.plantas.add(nievoLobo);
-        }*/
+    static void crearEntidadesIniciales(
+        int plantas, int conejos, int lobos, Ecosistema eco){
+
+    for (int i = 1; i <= plantas; i++) {
+        eco.agregarEntidad("planta");
     }
+
+    for (int i = 1; i <= conejos; i++) {
+        eco.agregarEntidad("conejo");
+    }
+
+    for (int i = 1; i <= lobos; i++) {
+        eco.agregarEntidad("lobo");
+    }
+}
     
     /*void cambiarValorDeInicio(String entidad, int cantidad){
         switch (entidad) {

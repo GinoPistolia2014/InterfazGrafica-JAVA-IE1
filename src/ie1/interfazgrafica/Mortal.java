@@ -4,23 +4,22 @@
  */
 package ie1.interfazgrafica;
 
-/**
- *
- * @author alqui
- */
 public interface Mortal {
-    
+
     double obtenerEnergia();
-    
-    default void verificarMuerte(){
-        double energia = obtenerEnergia();
-        if(energia <= 0 && estaVivo()){
+
+    String obtenerNombre();
+
+    default void verificarMuerte() {
+        if (obtenerEnergia() <= 0 && estaVivo()) {
             morir();
-            System.out.println("La entidad ha muerto");
-        } 
-    };
-    
-    public boolean estaVivo();
-    public void morir();
-    
+            System.out.println(
+                    obtenerNombre()
+                    + " murio por falta de energia.");
+        }
+    }
+
+    boolean estaVivo();
+
+    void morir();
 }
