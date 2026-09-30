@@ -73,7 +73,7 @@ public void reproducirse(Ecosistema eco) {
 
     if (hayOtroConejoVivo) {
         Conejo nuevoConejo = new Conejo(
-                "Conejo-" + System.nanoTime(), 30, 5, 2.5
+                    eco.generarNombre("Conejo"), 30, 5, 2.5
         );
         eco.registrarNacimiento(nuevoConejo);
         establecerEnergia(obtenerEnergia() - 30);

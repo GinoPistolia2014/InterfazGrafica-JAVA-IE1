@@ -44,7 +44,7 @@ public class Planta extends Entidad implements Reproducible, Mortal {
         }
 
         Planta nueva = crearDescendiente(
-                "Planta-" + System.nanoTime());
+        eco.generarNombre("Planta"));
 
         eco.registrarNacimiento(nueva);
         establecerEnergia(obtenerEnergia() - 20);
