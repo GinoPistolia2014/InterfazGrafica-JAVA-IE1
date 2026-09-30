@@ -100,7 +100,7 @@ public class Planta extends Entidad implements Reproducible, Mortal {
                     "Debe configurar el clima antes de reproducir plantas.");
         }
 
-        double probabilidadBase = 0.40;
+        double probabilidadBase = 0.60;
 
         switch (clima) {
             case soleado:

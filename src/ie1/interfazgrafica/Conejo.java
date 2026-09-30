@@ -71,7 +71,7 @@ public void reproducirse(Ecosistema eco) {
         }
     }
 
-    if (hayOtroConejoVivo) {
+     if (hayOtroConejoVivo && Math.random() < 0.30) {
         Conejo nuevoConejo = new Conejo(
                     eco.generarNombre("Conejo"), 30, 5, 2.5
         );
