@@ -90,7 +90,6 @@ public class Planta extends Entidad implements Reproducible, Mortal {
             throw new IllegalArgumentException(
                     "El tamanio debe estar entre 1 y 5.");
         }
-
         this.tamanio = tamanio;
     }
 

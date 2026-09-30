@@ -21,64 +21,64 @@ public class Conejo extends Animal implements Reproducible {
     }
     
     @Override
-void comer(Ecosistema eco){
-    if (!estaVivo() || obtenerEnergia() <= 0) {
-        return;
-    }
-
-    for (Planta planta : eco.obtenerPlantas()) {
-        if (planta.obtenerViva() && planta.obtenerEnergia() > 0) {
-            int valorNutritivo = planta.serComida();
-
-            establecerEnergia(obtenerEnergia() + valorNutritivo);
-
-            eco.registrarEvento(
-                    obtenerNombre() + " comio a "
-                    + planta.obtenerNombre()
-                    + " (aporte de energia: " + valorNutritivo + ").");
-
-            eco.registrarMuerte(
-            planta, "fue consumida por " + obtenerNombre());
-
+    void comer(Ecosistema eco){
+        if (!estaVivo() || obtenerEnergia() <= 0) {
             return;
         }
+
+        for (Planta planta : eco.obtenerPlantas()) {
+            if (planta.obtenerViva() && planta.obtenerEnergia() > 0) {
+                int valorNutritivo = planta.serComida();
+
+                establecerEnergia(obtenerEnergia() + valorNutritivo);
+
+                eco.registrarEvento(
+                        obtenerNombre() + " comio a "
+                        + planta.obtenerNombre()
+                        + " (aporte de energia: " + valorNutritivo + ").");
+
+                eco.registrarMuerte(
+                planta, "fue consumida por " + obtenerNombre());
+
+                return;
+            }
+        }
+
+        establecerEnergia(obtenerEnergia() - 15);
+
+        eco.registrarEvento(
+                obtenerNombre()
+                + " no encontro plantas disponibles y perdio 15 de energia.");
     }
-
-    establecerEnergia(obtenerEnergia() - 15);
-
-    eco.registrarEvento(
-            obtenerNombre()
-            + " no encontro plantas disponibles y perdio 15 de energia.");
-}
     
     @Override
-        public boolean puedeReproducirse() {
+    public boolean puedeReproducirse() {
         return estaVivo() && obtenerEnergia() > 60;
-}
+    }
 
     @Override
-public void reproducirse(Ecosistema eco) {
-    if (!puedeReproducirse()) {
-        return;
-    }
+    public void reproducirse(Ecosistema eco) {
+        if (!puedeReproducirse()) {
+            return;
+        }
 
-    boolean hayOtroConejoVivo = false;
+        boolean hayOtroConejoVivo = false;
 
-    for (Conejo otro : eco.obtenerConejos()) {
-      if (otro != this && otro.estaVivo() && otro.obtenerEnergia() > 0) {
-            hayOtroConejoVivo = true;
-            break;
+        for (Conejo otro : eco.obtenerConejos()) {
+          if (otro != this && otro.estaVivo() && otro.obtenerEnergia() > 0) {
+                hayOtroConejoVivo = true;
+                break;
+            }
+        }
+
+        if (hayOtroConejoVivo && Math.random() < 0.30) {
+           Conejo nuevoConejo = new Conejo(
+                       eco.generarNombre("Conejo"), 30, 5, 2.5
+           );
+           eco.registrarNacimiento(nuevoConejo);
+           establecerEnergia(obtenerEnergia() - 30);
         }
     }
-
-     if (hayOtroConejoVivo && Math.random() < 0.30) {
-        Conejo nuevoConejo = new Conejo(
-                    eco.generarNombre("Conejo"), 30, 5, 2.5
-        );
-        eco.registrarNacimiento(nuevoConejo);
-        establecerEnergia(obtenerEnergia() - 30);
-    }
-}
     
     @Override
     protected void mostrarEstado(){

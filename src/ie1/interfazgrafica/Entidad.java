@@ -44,33 +44,33 @@ public abstract class Entidad {
     // ------------------------------------------------- SETTERS
     
     protected void establecerNombre(String nombre){
-    if (nombre == null || nombre.trim().isEmpty()) {
-        throw new IllegalArgumentException(
-                "El nombre no puede estar vacio.");
-    }
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "El nombre no puede estar vacio.");
+        }
 
-    this.nombre = nombre.trim();
-}
+        this.nombre = nombre.trim();
+    }
     
    protected void establecerEnergia(double energia){
-    if (!Double.isFinite(energia)) {
-        throw new IllegalArgumentException(
-                "La energia debe ser un numero finito.");
-    }
+        if (!Double.isFinite(energia)) {
+            throw new IllegalArgumentException(
+                    "La energia debe ser un numero finito.");
+        }
 
-    this.energia = Math.max(0.0, energia);
-}
+        this.energia = Math.max(0.0, energia);
+    }
     
     protected void establecerEdad(int edad){
-    this.edad = Math.max(0, edad);
-}
+        this.edad = Math.max(0, edad);
+    }
     
     protected void establecerViva(boolean viva){
         this.viva = viva;
     }
     
     protected void envejecer(){
-    this.edad = this.edad + 1;
-    establecerEnergia(this.energia - 5);
-}
+        this.edad = this.edad + 1;
+        establecerEnergia(this.energia - 5);
+    }
 }
