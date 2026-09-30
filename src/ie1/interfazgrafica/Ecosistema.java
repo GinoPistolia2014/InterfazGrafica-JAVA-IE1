@@ -152,7 +152,6 @@ public class Ecosistema {
         if (efectoLobos != 0) {
             efecto += ", lobos " + String.format("%+d", efectoLobos) + " de energia";
         }
-
         registrarEvento(efecto + ".");
     }
 
@@ -269,7 +268,6 @@ public class Ecosistema {
             throw new IllegalArgumentException(
                     "Tipo de entidad desconocido: " + tipo);
         }
-
         return nueva;
     }
 
@@ -288,7 +286,6 @@ public class Ecosistema {
             throw new IllegalArgumentException(
                     "El clima no puede ser nulo.");
         }
-
         this.climaActual = nuevo;
     }
 
@@ -333,7 +330,6 @@ public class Ecosistema {
                 vivas++;
             }
         }
-
         return vivas;
     }
 
@@ -345,7 +341,6 @@ public class Ecosistema {
                 vivos++;
             }
         }
-
         return vivos;
     }
 
@@ -357,7 +352,6 @@ public class Ecosistema {
                 vivos++;
             }
         }
-
         return vivos;
     }
 
@@ -615,7 +609,6 @@ public class Ecosistema {
             throw new IllegalArgumentException(
                     "El evento no puede estar vacio.");
         }
-
         eventosTurno.add(evento.trim());
     }
 

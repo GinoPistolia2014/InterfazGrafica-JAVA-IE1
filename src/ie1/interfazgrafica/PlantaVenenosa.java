@@ -23,14 +23,15 @@ public class PlantaVenenosa extends Planta implements Peligroso {
         super.serComida();
         return -30;
     }
-     @Override
-     public int getNivelPeligro(){
-    return 2;
+    
+    @Override
+    public int getNivelPeligro(){
+        return 2;
     }
      
-       @Override
-      protected Planta crearDescendiente(String nombre){
-     return new PlantaVenenosa(nombre, 40);
+    @Override
+    protected Planta crearDescendiente(String nombre){
+        return new PlantaVenenosa(nombre, 40);
     }
 }
 
