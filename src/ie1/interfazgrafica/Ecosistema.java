@@ -367,8 +367,214 @@ public class Ecosistema {
                 || contarLobosVivos() == 0;
     }
 
+        // ------------------------------------------------ REPORTE FINAL
+
     public void generarReporteFinal() {
-        // Se implementa en el siguiente paso.
+        System.out.println();
+        System.out.println("============== REPORTE FINAL ==============");
+        System.out.println("Turnos jugados: " + turnoActual);
+
+        // 1. Causa de fin.
+        if (ecosistemaColapsado()) {
+            String extintas = "";
+
+            if (contarPlantasVivas() == 0) {
+                extintas += " plantas";
+            }
+
+            if (contarConejosVivos() == 0) {
+                extintas += " conejos";
+            }
+
+            if (contarLobosVivos() == 0) {
+                extintas += " lobos";
+            }
+
+            System.out.println("Causa de fin: colapso del ecosistema.");
+            System.out.println("Poblacion extinguida:" + extintas);
+        } else {
+            System.out.println(
+                    "Causa de fin: se completaron los " + turnoActual + " turnos configurados.");
+        }
+
+        System.out.println(
+                "Poblacion final: Plantas: " + contarPlantasVivas()
+                + "  Conejos: " + contarConejosVivos()
+                + "  Lobos: " + contarLobosVivos());
+
+        // 2. Turno de mayor actividad.
+        int turnoMasActivo = 0;
+        int maxEventos = -1;
+
+        for (int i = 0; i < historialEventos.size(); i++) {
+            int cantidad = historialEventos.get(i).size();
+
+            if (cantidad > maxEventos) {
+                maxEventos = cantidad;
+                turnoMasActivo = i + 1;
+            }
+        }
+
+        System.out.println();
+        if (turnoMasActivo > 0) {
+            System.out.println(
+                    "Turno de mayor actividad: turno " + turnoMasActivo
+                    + " (" + maxEventos + " eventos).");
+        }
+
+        // 3. Entidad mas longeva de cada tipo.
+        System.out.println();
+        System.out.println("Entidad mas longeva de cada tipo:");
+        mostrarMasLongeva("Planta", new ArrayList<Entidad>(plantas));
+        mostrarMasLongeva("Conejo", new ArrayList<Entidad>(conejos));
+        mostrarMasLongeva("Lobo", new ArrayList<Entidad>(lobos));
+
+        // 4. Lobo con mas cacerias exitosas.
+        Lobo mejorCazador = null;
+
+        for (Lobo lobo : lobos) {
+            if (mejorCazador == null
+                    || lobo.obtenerExitosCaza() > mejorCazador.obtenerExitosCaza()) {
+                mejorCazador = lobo;
+            }
+        }
+
+        System.out.println();
+        if (mejorCazador != null) {
+            System.out.println(
+                    "Lobo con mas cacerias exitosas: " + mejorCazador.obtenerNombre()
+                    + " (" + mejorCazador.obtenerExitosCaza() + " cacerias).");
+        }
+
+        // 5. Nacimientos y muertes por tipo.
+        int[] nacimientos = contarPorTipo(nacimientosRegistrados);
+        int[] muertes = contarPorTipo(muertesRegistradas);
+
+        System.out.println();
+        System.out.println("Nacimientos y muertes por tipo:");
+        System.out.println(
+                "  Plantas: " + nacimientos[0] + " nacimientos, " + muertes[0] + " muertes");
+        System.out.println(
+                "  Conejos: " + nacimientos[1] + " nacimientos, " + muertes[1] + " muertes");
+        System.out.println(
+                "  Lobos:   " + nacimientos[2] + " nacimientos, " + muertes[2] + " muertes");
+
+        // ---------------------------------- EXTRAS
+
+        // Historial de poblaciones turno a turno.
+        System.out.println();
+        System.out.println("Historial de poblaciones:");
+        System.out.println("Turno | Plantas | Conejos | Lobos");
+
+        for (int turno = 0; turno < historialPlantas.size(); turno++) {
+            System.out.printf(
+                    "%5d | %7d | %7d | %5d%n",
+                    turno,
+                    historialPlantas.get(turno),
+                    historialConejos.get(turno),
+                    historialLobos.get(turno));
+        }
+
+        // Maximos y minimos de cada poblacion.
+        System.out.println();
+        System.out.println("Maximos y minimos (turno 0 = estado inicial):");
+        mostrarMaximoYMinimo("Plantas", historialPlantas);
+        mostrarMaximoYMinimo("Conejos", historialConejos);
+        mostrarMaximoYMinimo("Lobos", historialLobos);
+
+        // Entidades peligrosas vivas, ordenadas por nivel (de mayor a menor).
+        ArrayList<Peligroso> peligrosos = new ArrayList<>();
+
+        for (Planta planta : plantas) {
+            if (planta.estaVivo() && planta instanceof Peligroso) {
+                peligrosos.add((Peligroso) planta);
+            }
+        }
+
+        for (Lobo lobo : lobos) {
+            if (lobo.estaVivo()) {
+                peligrosos.add(lobo);
+            }
+        }
+
+        peligrosos.sort((a, b) -> b.getNivelPeligro() - a.getNivelPeligro());
+
+        System.out.println();
+        System.out.println("Entidades peligrosas (ordenadas por nivel de peligro):");
+
+        if (peligrosos.isEmpty()) {
+            System.out.println("  No quedan entidades peligrosas con vida.");
+        } else {
+            for (Peligroso peligroso : peligrosos) {
+                System.out.println(
+                        "  " + peligroso.obtenerNombre()
+                        + " - nivel " + peligroso.getNivelPeligro());
+            }
+        }
+
+        System.out.println("===========================================");
+    }
+
+    private void mostrarMasLongeva(String tipo, ArrayList<Entidad> lista) {
+        Entidad masLongeva = null;
+
+        for (Entidad entidad : lista) {
+            if (masLongeva == null || entidad.obtenerEdad() > masLongeva.obtenerEdad()) {
+                masLongeva = entidad;
+            }
+        }
+
+        if (masLongeva == null) {
+            System.out.println("  " + tipo + ": no hubo.");
+            return;
+        }
+
+        String estado = masLongeva.obtenerViva() ? "sigue con vida" : "ya murio";
+
+        System.out.println(
+                "  " + tipo + ": " + masLongeva.obtenerNombre()
+                + " (edad " + masLongeva.obtenerEdad() + ", " + estado + ")");
+    }
+
+    // Devuelve {plantas, conejos, lobos}.
+    private int[] contarPorTipo(ArrayList<Entidad> lista) {
+        int[] cantidades = new int[3];
+
+        for (Entidad entidad : lista) {
+            if (entidad instanceof Planta) {
+                cantidades[0]++;
+            } else if (entidad instanceof Conejo) {
+                cantidades[1]++;
+            } else if (entidad instanceof Lobo) {
+                cantidades[2]++;
+            }
+        }
+
+        return cantidades;
+    }
+
+    private void mostrarMaximoYMinimo(String nombre, ArrayList<Integer> historial) {
+        if (historial.isEmpty()) {
+            return;
+        }
+
+        int turnoMaximo = 0;
+        int turnoMinimo = 0;
+
+        for (int turno = 1; turno < historial.size(); turno++) {
+            if (historial.get(turno) > historial.get(turnoMaximo)) {
+                turnoMaximo = turno;
+            }
+
+            if (historial.get(turno) < historial.get(turnoMinimo)) {
+                turnoMinimo = turno;
+            }
+        }
+
+        System.out.println(
+                "  " + nombre
+                + ": maximo " + historial.get(turnoMaximo) + " (turno " + turnoMaximo + ")"
+                + ", minimo " + historial.get(turnoMinimo) + " (turno " + turnoMinimo + ")");
     }
 
     // ------------------------------------------------ GETTERS

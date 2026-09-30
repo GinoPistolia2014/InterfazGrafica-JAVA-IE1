@@ -11,5 +11,6 @@ package ie1.interfazgrafica;
 public interface Peligroso {
     
      int getNivelPeligro();
+     String obtenerNombre();
     
 }

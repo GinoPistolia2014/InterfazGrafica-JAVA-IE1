@@ -104,6 +104,6 @@ public void establecerExitosCaza(int exitosCaza){
 }
    @Override
    public int getNivelPeligro(){
-    return 3;
+    return 3 + obtenerExitosCaza();
     }
 }
