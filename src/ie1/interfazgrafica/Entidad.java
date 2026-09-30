@@ -9,24 +9,23 @@ package ie1.interfazgrafica;
  * @author alqui
  */
 public abstract class Entidad {
-    protected String nombre;
-    protected double energia;
-    protected int edad;
-    protected boolean viva;
-    
+    private String nombre;
+    private double energia;
+    private int edad;
+    private boolean viva;
     public Entidad(String nombre, double energia, int edad){
-        this.nombre = nombre;
-        this.energia = 30.0 + (Math.random() * 70.0);
-        this.edad = 0;
-        this.viva = true;
-    }
+    establecerNombre(nombre);
+    establecerEnergia(energia);
+    establecerEdad(edad);
+    this.viva = obtenerEnergia() > 0;
+}
     
     abstract void actuar(Ecosistema eco);
     abstract void mostrarEstado();
     
     // ------------------------------------------------ GETTERS
     
-    protected String obtenerNombre(){
+    public String obtenerNombre() {
         return this.nombre;
     }
     
@@ -45,27 +44,33 @@ public abstract class Entidad {
     // ------------------------------------------------- SETTERS
     
     protected void establecerNombre(String nombre){
-        this.nombre = nombre;
+    if (nombre == null || nombre.trim().isEmpty()) {
+        throw new IllegalArgumentException(
+                "El nombre no puede estar vacio.");
     }
+
+    this.nombre = nombre.trim();
+}
     
-    protected void establecerEnergia(double energia){
-        if (energia < 0){
-            System.out.println("La energía no puedes ser menor a 0. Elige un valor válido");
-        } else {
-            this.energia = energia;
-        }
+   protected void establecerEnergia(double energia){
+    if (!Double.isFinite(energia)) {
+        throw new IllegalArgumentException(
+                "La energia debe ser un numero finito.");
     }
+
+    this.energia = Math.max(0.0, energia);
+}
     
     protected void establecerEdad(int edad){
-        this.edad = edad;
-    }
+    this.edad = Math.max(0, edad);
+}
     
     protected void establecerViva(boolean viva){
         this.viva = viva;
     }
     
     protected void envejecer(){
-        this.edad = edad + 1;
-        this.energia = energia - 5;
-    }
+    this.edad = this.edad + 1;
+    establecerEnergia(this.energia - 5);
+}
 }

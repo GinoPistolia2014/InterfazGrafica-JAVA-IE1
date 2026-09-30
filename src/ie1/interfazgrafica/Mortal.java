@@ -4,25 +4,27 @@
  */
 package ie1.interfazgrafica;
 
-/**
- *
- * @author alqui
- */
 public interface Mortal {
-    
+
     double obtenerEnergia();
-    
-    default void verificarMuerte(){
-        double energia = obtenerEnergia();
-        if(energia <= 0 && (!estaVivo())){
+
+    String obtenerNombre();
+
+    /**
+     * Si la entidad esta viva pero se quedo sin energia, la mata.
+     * Devuelve true cuando la entidad murio en esta verificacion, para que
+     * el Ecosistema registre el evento y lo imprima con los eventos del turno.
+     */
+    default boolean verificarMuerte() {
+        if (obtenerEnergia() <= 0 && estaVivo()) {
             morir();
-            System.out.println("La entidad ha muerto");
-        } else {
-            System.out.println("Aún sigue con vida");
+            return true;
         }
-    };
-    
-    public boolean estaVivo();
-    public void morir();
-    
+
+        return false;
+    }
+
+    boolean estaVivo();
+
+    void morir();
 }
