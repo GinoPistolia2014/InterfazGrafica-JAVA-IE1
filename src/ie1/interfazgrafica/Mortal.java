@@ -10,13 +10,18 @@ public interface Mortal {
 
     String obtenerNombre();
 
-    default void verificarMuerte() {
+    /**
+     * Si la entidad esta viva pero se quedo sin energia, la mata.
+     * Devuelve true cuando la entidad murio en esta verificacion, para que
+     * el Ecosistema registre el evento y lo imprima con los eventos del turno.
+     */
+    default boolean verificarMuerte() {
         if (obtenerEnergia() <= 0 && estaVivo()) {
             morir();
-            System.out.println(
-                    obtenerNombre()
-                    + " murio por falta de energia.");
+            return true;
         }
+
+        return false;
     }
 
     boolean estaVivo();
